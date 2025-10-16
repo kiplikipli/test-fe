@@ -1,6 +1,22 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+const placeholderRows = [
+  { date: "--", clockIn: "--", clockOut: "--", status: "Waiting for data" },
+]
 
 export const SummaryPage = () => {
   return (
@@ -26,31 +42,51 @@ export const SummaryPage = () => {
             <Input id="to" type="date" />
           </div>
         </CardContent>
+        <CardFooter className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+            <Badge variant="outline" className="uppercase">
+              Export soon
+            </Badge>
+            <Separator orientation="vertical" className="hidden h-5 md:block" />
+            <span>Reports and CSV downloads are on the roadmap.</span>
+          </div>
+          <Alert className="md:max-w-md">
+            <AlertTitle>Preview data</AlertTitle>
+            <AlertDescription>
+              Once connected, filters will refresh the table and populate analytics cards.
+            </AlertDescription>
+          </Alert>
+        </CardFooter>
       </Card>
       <Card>
         <CardHeader>
           <CardTitle>Attendance Log</CardTitle>
           <CardDescription>Table data will be populated from the mock server soon.</CardDescription>
         </CardHeader>
-        <CardContent className="overflow-x-auto">
-          <table className="min-w-full text-left text-sm">
-            <thead>
-              <tr className="border-b text-muted-foreground">
-                <th className="px-4 py-2 font-medium">Date</th>
-                <th className="px-4 py-2 font-medium">Clock In</th>
-                <th className="px-4 py-2 font-medium">Clock Out</th>
-                <th className="px-4 py-2 font-medium">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="border-b">
-                <td className="px-4 py-3">--</td>
-                <td className="px-4 py-3">--</td>
-                <td className="px-4 py-3">--</td>
-                <td className="px-4 py-3">Waiting for data</td>
-              </tr>
-            </tbody>
-          </table>
+        <CardContent className="overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Date</TableHead>
+                <TableHead>Clock In</TableHead>
+                <TableHead>Clock Out</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {placeholderRows.map((row) => (
+                <TableRow key={row.status}>
+                  <TableCell>{row.date}</TableCell>
+                  <TableCell>{row.clockIn}</TableCell>
+                  <TableCell>{row.clockOut}</TableCell>
+                  <TableCell>
+                    <Badge variant="secondary">{row.status}</Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            <TableCaption>Historical entries will appear once the API is connected.</TableCaption>
+          </Table>
         </CardContent>
       </Card>
     </div>
