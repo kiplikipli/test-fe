@@ -10,6 +10,8 @@ import {
   SummaryRoute,
 } from "@/app/routes/employee"
 
+const ProtectedEmployeeLayout = () => requireAuth(<EmployeeLayout />)
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/app",
-    element: requireAuth(<EmployeeLayout />),
+    element: <ProtectedEmployeeLayout />, 
     children: [
       {
         index: true,
