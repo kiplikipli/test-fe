@@ -1,3 +1,6 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -9,6 +12,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
 
 export const ProfilePage = () => {
   return (
@@ -17,6 +21,27 @@ export const ProfilePage = () => {
         <h1 className="text-3xl font-semibold tracking-tight">Profile</h1>
         <p className="text-muted-foreground">Review your personal details.</p>
       </div>
+      <Card className="overflow-hidden">
+        <CardContent className="flex flex-col items-center gap-6 p-6 text-center md:flex-row md:items-center md:gap-8 md:text-left">
+          <Avatar className="h-20 w-20 border-2 border-primary/20">
+            <AvatarFallback className="text-lg">JD</AvatarFallback>
+          </Avatar>
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
+              <h2 className="text-2xl font-semibold">Jane Doe</h2>
+              <Badge variant="secondary">Remote</Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Product designer collaborating with distributed squads across time zones.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground md:justify-start">
+              <span>jane.doe@example.com</span>
+              <Separator orientation="vertical" className="hidden h-4 sm:block" />
+              <span>UTC-4</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
       <Card>
         <CardHeader>
           <CardTitle>Employee Information</CardTitle>
@@ -36,8 +61,16 @@ export const ProfilePage = () => {
             <Input id="role" value="Product Designer" readOnly />
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end">
-          <Button disabled>Edit Profile</Button>
+        <CardFooter className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <Alert variant="default" className="md:max-w-md">
+            <AlertTitle>Heads up</AlertTitle>
+            <AlertDescription>
+              Editing and syncing with the mock API are coming soon. For now, data is static.
+            </AlertDescription>
+          </Alert>
+          <Button variant="secondary" disabled>
+            Edit Profile
+          </Button>
         </CardFooter>
       </Card>
     </div>
